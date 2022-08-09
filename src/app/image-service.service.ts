@@ -6,7 +6,7 @@ import { delay } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ImageService {
-  uploadApi = 'http://localhost:3000/upload';
+  uploadApi = 'https://upload-tournament-team-images.herokuapp.com/upload';
   constructor(private http: HttpClient) { }
 
 
@@ -16,4 +16,11 @@ export class ImageService {
     console.log(formData);
     return this.http.post(this.uploadApi, formData).pipe(delay(2500));
   }
+
+  public getTeamImages() {
+    return this.http.get('http://localhost:3000/get-team-images', { responseType: 'blob' });
+  }
+  
+
+
 }

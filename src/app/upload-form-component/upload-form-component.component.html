@@ -2,8 +2,8 @@
   <span>Select Image</span>
   <input #imageInput name="sampleImage" type="file" accept="image/*" (change)="processFile(imageInput)">
 </label>
-
-
+<br>
+<button class="btn btn-primary" (click)="onGetTeamImages()">Get Uploaded Image</button>
 
 
 <div *ngIf="selectedFile" class="img-preview-container">
@@ -20,3 +20,9 @@
   <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> Image Upload Succesfuly! </div>
   <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Error! </div>
 </div>
+
+<div class="container" *ngIf="url">
+
+  <img style="width: 100%; height: 100%" [src]="url">
+</div>
+

@@ -1,4 +1,5 @@
-import { Component, OnInit, ErrorHandler } from '@angular/core';
+import { Component, OnInit, ErrorHandler, Sanitizer } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ImageService } from '../image-service.service';
 
 
@@ -15,12 +16,24 @@ class ImageSnippet {
   styleUrls: ['./upload-form-component.component.scss']
 })
 export class UploadFormComponentComponent implements OnInit {
-
   selectedFile: ImageSnippet;
+  public url: SafeResourceUrl;
 
-  constructor(private imageService: ImageService) { }
+  constructor(private imageService: ImageService, public sanitizer: DomSanitizer) { }
 
   ngOnInit() {
+  }
+
+  onGetTeamImages() {
+    this.imageService.getTeamImages().subscribe(res => {
+      if(res) {
+        var imageUrl = URL.createObjectURL(res)
+        this.url = this.sanitizer.bypassSecurityTrustResourceUrl(imageUrl); 
+      }else {
+        console.log('error');
+      }
+    
+    });
   }
 
 
